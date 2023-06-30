@@ -1,7 +1,8 @@
-import 'dart:html';
+import 'starter-page.dart';
+import 'login-page.dart';
+import 'register-page.dart';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,62 +27,15 @@ class MyApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
         primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: const Color.fromARGB(255, 59, 59, 59),
+        scaffoldBackgroundColor: Colors.black87,
       ),
-      home: const StarterPage(),
+      initialRoute: '/',
+      routes: {
+        '/' :(context) => const StarterPage(),
+        '/login' :(context) => const LoginPage(),
+        '/register' :(context) => const RegisterPage(),
+      },
       debugShowCheckedModeBanner: false,
-    );
-  }
-}
-
-class StarterPage extends StatefulWidget {
-  const StarterPage({super.key});
-
-  @override
-  State<StarterPage> createState() => _StarterPageState();
-}
-
-class _StarterPageState extends State<StarterPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            'Welcome to Travel Planner',
-            style: GoogleFonts.getFont(
-              "Dancing Script",
-              textStyle: const TextStyle(
-                color: Colors.white,
-                fontSize: 40,
-              ),
-            ),
-          ),
-          TextButton(
-            onPressed: () {},
-            child: const Text('Login'),
-            style: ButtonStyle(
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(2)))),
-                fixedSize: MaterialStateProperty.all<Size>(Size(300, 50)),
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                overlayColor: MaterialStateProperty.resolveWith<Color?>(
-                  (Set<MaterialState> states) {
-                    if (states.contains(MaterialState.hovered))
-                      return Colors.grey.withOpacity(0.2);
-                    if (states.contains(MaterialState.focused) ||
-                        states.contains(MaterialState.pressed))
-                      return Colors.grey.withOpacity(0.5);
-                  },
-                ),
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.black)),
-          ),
-        ],
-      )),
     );
   }
 }
