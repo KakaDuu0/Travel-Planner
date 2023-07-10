@@ -5,6 +5,7 @@ class User {
   String username = 'Guest';
   String email = '';
   double budget = 0;
+  Map documents = {};
 
   String getUsername() {
     return username;
@@ -16,6 +17,14 @@ class User {
 
   double getBudget() {
     return budget;
+  }
+
+  Map getDocuments() {
+    return documents;
+  }
+
+  void addToDocuments(var key, var value) {
+    documents[key] = value;
   }
 
   void setUsername(String username) {

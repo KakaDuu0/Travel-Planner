@@ -14,9 +14,8 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  static Service s = const Service();
+  static Service s = Service();
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

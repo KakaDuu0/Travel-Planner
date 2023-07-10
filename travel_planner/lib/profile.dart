@@ -11,8 +11,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class ProfilePageState extends State<ProfilePage> {
-  String currentPage = 'Profile';
-  String pageToRight = 'Home';
   @override
   Widget build(BuildContext context) {
     return Scaffold(

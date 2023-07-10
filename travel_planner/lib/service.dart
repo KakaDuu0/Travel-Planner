@@ -1,5 +1,13 @@
+import './models/user.dart';
+import 'repository.dart';
+
 class Service {
-  const Service();
+  Service();
+
+  final User user = User.guest();
+  bool isLoggedIn = false;
+  final Repository repository = Repository();
+
   String validateUsernameInput(String text) {
     String err = '';
 
@@ -29,7 +37,6 @@ class Service {
   String checkCorrectPassword(String text) {
     String err = '';
     //check database
-    //for (int i = 0; i < 10000; ++i) for (int j = 0; j < 500000; ++j);
 
     return err;
   }
@@ -46,6 +53,34 @@ class Service {
   bool login(String uname, String pwd) {
     bool success = true;
 
+    if (success) {
+      isLoggedIn = true;
+      updateUserInstance(uname);
+    }
+
     return success;
+  }
+
+  bool register(String uname, String pwd, String email) {
+    bool success = true;
+
+    if (success) {
+      isLoggedIn = true;
+      updateUserInstance(uname, email: email);
+    }
+
+    return success;
+  }
+
+  void updateUserInstance(String username, {String email = ''}) {
+    // Retrieve data from database
+    user.setUsername(username);
+    if (email != '') {
+      user.setEmail(email);
+    }
+  }
+
+  double getBudget() {
+    return 0;
   }
 }
