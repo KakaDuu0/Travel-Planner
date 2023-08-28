@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:travel_planner/profile.dart';
 import 'package:travel_planner/home.dart';
@@ -19,6 +21,7 @@ class MainHomePageState extends State<MainHomePage> {
   final int profileIndex = 0;
   final int homeIndex = 1;
   final int searchIndex = 2;
+  bool isContentUnderAppbar = false;
 
   List<String> pages = [
     'Profile',
@@ -26,7 +29,14 @@ class MainHomePageState extends State<MainHomePage> {
     'Search',
   ];
 
+  void updateScrollOffset(double offset) {
+    setState(() {
+      isContentUnderAppbar = offset > kToolbarHeight;
+    });
+  }
+
   void setActivePage(int index) {
+    if (index < 0 || index > 2) return;
     setState(() {
       currentIndex = index;
       slideValue = 0;
@@ -53,7 +63,7 @@ class MainHomePageState extends State<MainHomePage> {
     List<Widget> slides = [
       ProfilePage(service: widget.service),
       HomePage(service: widget.service),
-      SearchPage(service: widget.service),
+      SearchPage(scrollCallback: updateScrollOffset, service: widget.service),
     ];
 
     return Scaffold(
@@ -62,8 +72,19 @@ class MainHomePageState extends State<MainHomePage> {
         automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         shadowColor: Colors.transparent,
-        elevation: 1,
+        scrolledUnderElevation: 1,
+        flexibleSpace: ClipRect(
+          child: BackdropFilter(
+            filter: ImageFilter.blur(
+                sigmaX: isContentUnderAppbar ? 10 : 0,
+                sigmaY: isContentUnderAppbar ? 10 : 0),
+            child: Container(
+              decoration: const BoxDecoration(),
+            ),
+          ),
+        ),
         leading: IconButton(
+          splashRadius: 0.1,
           padding: const EdgeInsets.only(left: 20, top: 10),
           onPressed: () {
             setActivePage(currentIndex - 1);
@@ -90,6 +111,7 @@ class MainHomePageState extends State<MainHomePage> {
         ),
         actions: [
           IconButton(
+            splashRadius: 0.1,
             padding: const EdgeInsets.only(right: 20, top: 10),
             onPressed: () {
               setActivePage(currentIndex + 1);

@@ -128,7 +128,6 @@ class LoginPageState extends State<LoginPage> {
                   Container(
                     height: 80,
                     child: TextFormField(
-                      // TODO: add 'show password' option when icon clicked
                       controller: pwdController,
                       //onChanged: validatePassword,
                       decoration: passwordInputDecoration,

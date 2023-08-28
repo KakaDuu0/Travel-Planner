@@ -31,6 +31,8 @@ class RegisterPageState extends State<RegisterPage> {
   CustomInputDecoration passwordVInputDecoration =
       const CustomInputDecoration('Validate Password', '');
 
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController pwdController = TextEditingController();
   TextEditingController pwdVController = TextEditingController();
 
@@ -81,14 +83,10 @@ class RegisterPageState extends State<RegisterPage> {
     });
     await Future.delayed(const Duration(seconds: 2));
     if (isEmailValid && isUsernameValid && isPasswordValid) {
-      // try register
-      setState(() {
-        didRegisterFail = false;
-      });
+      didRegisterFail = !widget.service.register(
+          usernameController.text, emailController.text, pwdController.text);
     } else {
-      setState(() {
-        didRegisterFail = true;
-      });
+      didRegisterFail = true;
     }
 
     setState(() {
@@ -138,6 +136,7 @@ class RegisterPageState extends State<RegisterPage> {
                   Container(
                     height: 80,
                     child: TextFormField(
+                      controller: usernameController,
                       onChanged: validateUsername,
                       decoration: usernameInputDecoration,
                       textAlignVertical: TextAlignVertical.center,
@@ -146,6 +145,7 @@ class RegisterPageState extends State<RegisterPage> {
                   Container(
                     height: 80,
                     child: TextFormField(
+                      controller: emailController,
                       onChanged: validateEmail,
                       decoration: emailInputDecoration,
                       textAlignVertical: TextAlignVertical.center,
@@ -157,6 +157,8 @@ class RegisterPageState extends State<RegisterPage> {
                       controller: pwdController,
                       onChanged: validatePassword,
                       decoration: passwordInputDecoration,
+                      autocorrect: false,
+                      enableSuggestions: false,
                       obscureText: true,
                       textAlignVertical: TextAlignVertical.center,
                     ),
@@ -167,6 +169,8 @@ class RegisterPageState extends State<RegisterPage> {
                       controller: pwdVController,
                       onChanged: validateVPassword,
                       decoration: passwordVInputDecoration,
+                      autocorrect: false,
+                      enableSuggestions: false,
                       obscureText: true,
                       textAlignVertical: TextAlignVertical.center,
                     ),

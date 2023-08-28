@@ -136,11 +136,13 @@ class _StarterPageState extends State<StarterPage>
                     children: [
                       IconButton(
                         onPressed: () {},
+                        splashRadius: 0.1,
                         icon: const Icon(Icons.apple),
                         color: Colors.white,
                         iconSize: 50.0,
                       ),
                       IconButton(
+                        splashRadius: 0.1,
                         onPressed: () {},
                         icon: Image.asset(
                           'images/google_logo.png',
